@@ -58,7 +58,7 @@ def api_delete_album_view(request, id):
         return Response(data=data)
 
 
-@api_view(['POST', ])
+@api_view()
 def api_create_album_view(request):
     account = User.objects.get(pk=1)
 

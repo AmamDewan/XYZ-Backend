@@ -3,10 +3,12 @@ from users.serializers import UserRegistrationSerializer, UserLoginSerializer, T
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
+from rest_framework.permissions import BasePermission
 
 
 class UserRegistrationAPIView(CreateAPIView):
     serializer_class = UserRegistrationSerializer
+    permission_classes = [BasePermission]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

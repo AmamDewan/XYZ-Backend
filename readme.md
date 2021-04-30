@@ -28,5 +28,7 @@ python manage.py createsuperuser
 ```shell
 python manage.py runserver
 ```
+\
+__Rename__ `.env.example` to `.env` and set the necessary variables if needed
 
 _**Note:** do not use conda environment_

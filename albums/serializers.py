@@ -5,10 +5,11 @@ from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 
 
-class CreateAlbumSerializer(serializers.ModelSerializer):
+class AlbumSerializer(serializers.ModelSerializer):
+    photos = {}
 
     class Meta:
         model = Album
-        fields = ("id", "title", "owner", "is_public", "created_at")
+        fields = ("id", "title", "owner", "is_public", 'photos', "created_at")
 
 

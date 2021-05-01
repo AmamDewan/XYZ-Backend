@@ -32,3 +32,4 @@ class DetailAlbumAPIView(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAlbumPublic | UserIsAlbumOwner]
 
     queryset = Album.objects.all()
+

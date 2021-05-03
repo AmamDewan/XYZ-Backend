@@ -17,6 +17,7 @@ class UploadPhotoAPIView(CreateAPIView):
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
 
+
         data = serializer.data
 
         headers = self.get_success_headers(serializer.data)

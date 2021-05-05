@@ -14,12 +14,18 @@ class UploadPhotoTestCase(APITestCase):
         self.album = Album.objects.create(title="Another Album", owner=self.user, is_public=True)
         self.token = Token.objects.create(user=self.user)
         self.url = reverse("albums:upload", kwargs={"pk": self.album.pk})
+        self.file = open('./media/test/b1.PNG', 'rb')
 
     def test_photo_can_be_uploaded(self):
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
-        self.file = open('./media/test/b1.PNG', 'rb')
-        response = self.client.post(self.url, {"url": self.file, "album": self.album.pk}, )
+        response = self.client.post(self.url, {"title": "A title", "url": self.file, "album": self.album.pk}, )
         self.assertEqual(201, response.status_code)
 
+    def test_only_owner_can_upload_photos_to_album(self):
+        self.another_user = User.objects.create_user('harry', 'harry@potter.me', 'albus_serious_potter')
+        self.client.force_login(self.another_user)
+        response = self.client.post(self.url, {"title": "A title", "url": self.file, "album": self.album.pk}, )
+        self.assertNotEqual(201, response.status_code)
+        self.client.logout()
 
-
+    # def test_image_url_acessable

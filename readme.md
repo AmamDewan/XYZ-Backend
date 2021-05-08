@@ -16,6 +16,7 @@ source venv/bin/activate
 ```
 pip install -r requirements.txt
 ```
+__Rename__ `.env.example` to `.env` and set the necessary variables if needed
 
 * database migration and create super user
 ```
@@ -29,6 +30,4 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 \
-__Rename__ `.env.example` to `.env` and set the necessary variables if needed
-
 _**Note:** do not use conda environment_

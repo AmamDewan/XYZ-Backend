@@ -14,7 +14,7 @@ class UploadPhotoAPIView(CreateAPIView):
 
     def create(self, request, *args, **kwargs):
         album = Album.objects.get(pk=request.data["album"])
-        if album.owner.pk == int(request.data["album"]):
+        if album.owner.pk == 1:
             serializer = self.get_serializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             self.perform_create(serializer)

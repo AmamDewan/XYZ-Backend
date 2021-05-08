@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from django.conf.urls.static import static
+from django.conf import settings
 api_urls = [
     path('', include('users.urls')),
     path('', include('albums.urls'))
@@ -26,4 +27,6 @@ urlpatterns = [
 
     # Rest URL
     path('api/', include(api_urls)),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+

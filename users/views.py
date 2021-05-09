@@ -1,9 +1,10 @@
 from rest_framework.generics import CreateAPIView, GenericAPIView
-from users.serializers import UserRegistrationSerializer, UserLoginSerializer, TokenSerializer
+from users.serializers import UserRegistrationSerializer, UserLoginSerializer, TokenSerializer, UserSerializer
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import BasePermission
+from django.contrib.auth.models import User
 
 
 class UserRegistrationAPIView(CreateAPIView):
@@ -34,8 +35,14 @@ class UserLoginAPIView(GenericAPIView):
         if serializer.is_valid():
             user = serializer.user
             token, _ = Token.objects.get_or_create(user=user)
+            loggedin_user = User.objects.get(username=user)
+
+            user_data = UserSerializer(loggedin_user).data
+            token_data = TokenSerializer(token).data
+            user_data.update(token_data)
+
             return Response(
-                data=TokenSerializer(token).data,
+                data=user_data,
                 status=status.HTTP_200_OK,
             )
         else:

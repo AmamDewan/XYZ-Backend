@@ -13,16 +13,16 @@ class UploadPhotoAPIView(CreateAPIView):
     authentication_classes = [TokenAuthentication]
 
     def create(self, request, *args, **kwargs):
-        album = Album.objects.get(pk=request.data["album"])
-        if album.owner.pk == 1:
-            serializer = self.get_serializer(data=request.data)
-            serializer.is_valid(raise_exception=True)
-            self.perform_create(serializer)
-            data = serializer.data
+        # album = Album.objects.get(pk=request.data["album"])
+        # if album.owner.pk == int(request.data['album']):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        data = serializer.data
 
-            headers = self.get_success_headers(serializer.data)
-            return Response(data, status=status.HTTP_201_CREATED, headers=headers)
-        return Response('You are not allowed to post another user album', status=status.HTTP_401_UNAUTHORIZED)
+        headers = self.get_success_headers(serializer.data)
+        return Response(data, status=status.HTTP_201_CREATED, headers=headers)
+        # return Response('You are not allowed to post another user album', status=status.HTTP_401_UNAUTHORIZED)
     # def perform_create(self, serializer):
 
 
